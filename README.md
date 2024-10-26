@@ -7,12 +7,20 @@ A template to create all public facing sites
     ```
     pyenv install
     ```
-3. In the root directory run the following command to set python
-4. Create virtual env
+3. Create virtual environment by running the command
     ```
     pyenv virtualenv 3.12.7 venv
     ```
-5. Activate virtual env
+4. Activate the virtual environment by running the command
     ```
     pyenv activate venv
     ```
+5. Install the project dependencies by running the command
+    ```
+    pip install -r requirements.txt
+    ```
+6. Start the development server by running the command
+    ```
+    python manage.py runserver
+    ```
+7. Go to http://127.0.0.1:8000/health/ API to make sure the server it up

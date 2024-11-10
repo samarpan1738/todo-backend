@@ -13,10 +13,5 @@ def mongo_connection_check(app_configs, **kwargs):
         print("MongoDB connection established successfully")
     except ConnectionFailure as e:
         print(f"MongoDB connection failed: {e}")
-        errors.append(
-            Error(
-                "Failed to establish MongoDB connection",
-                hint="Please check if database is correctly configured running",
-            )
-        )
+        errors.append(Error("Failed to establish MongoDB connection"))
     return errors

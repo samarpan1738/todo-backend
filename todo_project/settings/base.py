@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DJANGO_LOG_LEVEL = os.getenv("DJANGO_LOG_LEVEL", "INFO")
 MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = os.getenv("DB_NAME")
 
@@ -68,4 +69,23 @@ REST_FRAMEWORK = {
     ],
     # https://www.django-rest-framework.org/api-guide/settings/#authentication-settings
     "UNAUTHENTICATED_USER": None,
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] [{levelname}] [{process} {thread}] [{module} {filename} {lineno}] - {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": DJANGO_LOG_LEVEL,
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {"": {"level": DJANGO_LOG_LEVEL, "handlers": ["console"]}},
 }

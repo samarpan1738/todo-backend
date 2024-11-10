@@ -2,6 +2,9 @@ from django.core.checks import Error, register, Tags
 
 from todo_project.db.database import get_mongo_client
 from pymongo.errors import ConnectionFailure
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @register(Tags.database)
@@ -10,8 +13,8 @@ def mongo_connection_check(app_configs, **kwargs):
     errors = []
     try:
         mongo_client.admin.command("ping")
-        print("MongoDB connection established successfully")
+        logger.info("MongoDB connection established successfully")
     except ConnectionFailure as e:
-        print(f"MongoDB connection failed: {e}")
+        logger.error(f"MongoDB connection failed: {e}")
         errors.append(Error("Failed to establish MongoDB connection"))
     return errors

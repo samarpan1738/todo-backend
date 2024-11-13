@@ -52,7 +52,15 @@
     "status": "UP"
     }
     ```
-
+11. To run the tests, run the following command
+    ```
+    python manage.py test
+    ```
+12. To check test coverage, run the following command
+    ```
+    coverage report
+    ```
+    
 ## To simply try out the app
 1. Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
 2. Start Django application and MongoDB using docker

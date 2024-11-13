@@ -89,5 +89,10 @@ LOGGING = {
             "formatter": "verbose",
         },
     },
-    "loggers": {"": {"level": DJANGO_LOG_LEVEL, "handlers": ["console"]}},
+    "loggers": {
+        "": {
+            "level": DJANGO_LOG_LEVEL,
+            "handlers": ["console"],
+        }
+    },
 }

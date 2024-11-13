@@ -9,6 +9,7 @@ class HealthAPITests(APISimpleTestCase):
 
     def test_health_check_api_success_case(self):
         url = reverse("health")
+        print("abc")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {"status": "UP"})

@@ -16,7 +16,7 @@ services:
       - db
 
   db:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: todo-mongo
     ports:
       - "27017:27017"

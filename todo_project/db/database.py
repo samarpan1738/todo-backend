@@ -12,9 +12,7 @@ db = None
 def get_database_client():
     global database_client
     if database_client is None:
-        database_client = MongoClient(
-            settings.MONGODB_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000
-        )
+        database_client = MongoClient(settings.MONGODB_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
     return database_client
 
 

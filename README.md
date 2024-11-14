@@ -58,6 +58,7 @@
     ```
 12. To check test coverage, run the following command
     ```
+    coverage run --source='.' manage.py test
     coverage report
     ```
     

@@ -3,7 +3,7 @@
 
 import sys
 
-from todo_project.utils.settings_config import configure_settings_module
+from todo_project.settings.configure import configure_settings_module
 
 
 def main():

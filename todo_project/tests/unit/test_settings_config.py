@@ -1,7 +1,7 @@
 import unittest
 import os
 from unittest.mock import patch
-from todo_project.utils.settings_config import (
+from todo_project.settings.configure import (
     configure_settings_module,
     PRODUCTION_SETTINGS,
     DEFAULT_SETTINGS,

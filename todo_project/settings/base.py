@@ -17,7 +17,6 @@ ALLOWED_HOSTS = []
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = os.getenv("DB_NAME")
-
 # Application definition
 
 INSTALLED_APPS = [

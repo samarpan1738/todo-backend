@@ -18,9 +18,9 @@ class HealthAPITests(APISimpleTestCase):
         self.assertEqual(response.data["components"]["db"]["status"], ComponentHealthStatus.UP.name)
 
     @patch(target="todo_project.utils.health.is_db_healthy", return_value=False)
-    def test_health_api_with_db_down_returns_partial_failure_test(self, mocked):
+    def test_health_api_with_db_down_returns_degraded_test(self, mocked):
         url = reverse("health")
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["status"], HealthStatus.PARTIAL_FAILURE.name)
+        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertEqual(response.data["status"], HealthStatus.DEGRADED.name)
         self.assertEqual(response.data["components"]["db"]["status"], ComponentHealthStatus.DOWN.name)

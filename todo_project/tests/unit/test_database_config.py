@@ -1,7 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch, MagicMock
 from todo_project.db.config import get_database_client, get_database
-from todo_project.constants.database import SERVER_SELECTION_TIMEOUT_MS, CONNECT_TIMEOUT_MS
 from pymongo import MongoClient
 from pymongo.database import Database
 
@@ -29,11 +28,7 @@ class DatabaseConfigTests(TestCase):
 
         db_client = get_database_client()
 
-        mock_mongo_client.assert_called_once_with(
-            TEST_DATABASE_URI,
-            serverSelectionTimeoutMS=SERVER_SELECTION_TIMEOUT_MS,
-            connectTimeoutMS=CONNECT_TIMEOUT_MS,
-        )
+        mock_mongo_client.assert_called_once_with(TEST_DATABASE_URI)
 
         self.assertEqual(db_client, mock_client_instance)
 

@@ -52,27 +52,3 @@ REST_FRAMEWORK = {
     ],
     "UNAUTHENTICATED_USER": None,
 }
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "[{asctime}] [{levelname}] [{process} {thread}] [{module} {filename} {lineno}] - {message}",
-            "style": "{",
-        },
-    },
-    "handlers": {
-        "console": {
-            "level": DJANGO_LOG_LEVEL,
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
-    },
-    "loggers": {
-        "": {
-            "level": DJANGO_LOG_LEVEL,
-            "handlers": ["console"],
-        }
-    },
-}

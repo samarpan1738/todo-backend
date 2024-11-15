@@ -5,13 +5,13 @@ from todo_project.settings.configure import (
     configure_settings_module,
     PRODUCTION_SETTINGS,
     DEFAULT_SETTINGS,
-    DJANGO_ENV_VAR_NAME,
+    ENV_VAR_NAME,
     PRODUCTION,
 )
 
 
 class SettingModuleConfigTests(unittest.TestCase):
-    @patch.dict(os.environ, {DJANGO_ENV_VAR_NAME: PRODUCTION}, clear=True)
+    @patch.dict(os.environ, {ENV_VAR_NAME: PRODUCTION}, clear=True)
     def test_when_env_var_passed_use_passed_settings(self):
         configure_settings_module()
         self.assertEqual(os.getenv("DJANGO_SETTINGS_MODULE"), PRODUCTION_SETTINGS)

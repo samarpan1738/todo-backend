@@ -2,7 +2,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APISimpleTestCase, APIClient
 from rest_framework import status
 from unittest.mock import patch
-from todo.constants.health import HealthStatus, ComponentHealthStatus
+from todo.constants.health import AppHealthStatus, ComponentHealthStatus
 
 
 class HealthAPITests(APISimpleTestCase):
@@ -14,7 +14,7 @@ class HealthAPITests(APISimpleTestCase):
         url = reverse("health")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["status"], HealthStatus.UP.name)
+        self.assertEqual(response.data["status"], AppHealthStatus.UP.name)
         self.assertEqual(response.data["components"]["db"]["status"], ComponentHealthStatus.UP.name)
 
     @patch(target="todo_project.utils.health.is_db_healthy", return_value=False)
@@ -22,5 +22,5 @@ class HealthAPITests(APISimpleTestCase):
         url = reverse("health")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
-        self.assertEqual(response.data["status"], HealthStatus.DEGRADED.name)
+        self.assertEqual(response.data["status"], AppHealthStatus.DOWN.name)
         self.assertEqual(response.data["components"]["db"]["status"], ComponentHealthStatus.DOWN.name)

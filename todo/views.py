@@ -7,7 +7,7 @@ database_manager = DatabaseManager()
 
 
 class HealthView(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         global database_manager
         is_db_healthy = database_manager.check_database_health()
         db_status = ComponentHealthStatus.UP.name if is_db_healthy else ComponentHealthStatus.DOWN.name

@@ -49,19 +49,15 @@
 10. Go to http://127.0.0.1:8000/health/ API to make sure the server it up. You should see this response
     ```
     {
-    "status": "UP"
+        "status": "UP",
+        "components": {
+            "db": {
+                "status": "UP"
+            }
+        }
     }
     ```
-11. To run the tests, run the following command
-    ```
-    python manage.py test
-    ```
-12. To check test coverage, run the following command
-    ```
-    coverage run --source='.' manage.py test
-    coverage report
-    ```
-    
+
 ## To simply try out the app
 1. Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
 2. Start Django application and MongoDB using docker
@@ -75,3 +71,26 @@
     }
     ```
 4. On making changes to code and saving, live reload will work in this case as well
+
+## Command reference
+1. To run the tests, run the following command
+    ```
+    python manage.py test
+    ```
+2. To check test coverage, run the following command
+    ```
+    coverage run --source='.' manage.py test
+    coverage report
+    ```
+3. To run the formatter
+    ```
+    ruff format
+    ```
+4. To run lint check
+    ```
+    ruff check
+    ```
+5. To fix lint issues
+    ```
+    ruff check --fix
+    ```

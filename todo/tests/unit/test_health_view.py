@@ -9,7 +9,7 @@ class HealthAPITests(APISimpleTestCase):
     def setUp(self):
         self.client = APIClient()
 
-    @patch(target="todo_project.db.config.DatabaseManager.check_db_health", return_value=True)
+    @patch(target="todo_project.db.config.DatabaseManager.check_database_health", return_value=True)
     def test_health_api_returns_200_when_db_healthy(self, mocked):
         url = reverse("health")
         response = self.client.get(url)
@@ -17,7 +17,7 @@ class HealthAPITests(APISimpleTestCase):
         self.assertEqual(response.data["status"], AppHealthStatus.UP.name)
         self.assertEqual(response.data["components"]["db"]["status"], ComponentHealthStatus.UP.name)
 
-    @patch(target="todo_project.db.config.DatabaseManager.check_db_health", return_value=False)
+    @patch(target="todo_project.db.config.DatabaseManager.check_database_health", return_value=False)
     def test_health_api_returns_503_when_db_not_healthy(self, mocked):
         url = reverse("health")
         response = self.client.get(url)

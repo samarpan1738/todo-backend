@@ -30,7 +30,7 @@ class DatabaseManager:
         database = self.get_database()
         return database[collection_name]
 
-    def check_db_health(self):
+    def check_database_health(self):
         try:
             db_client = self.__get_database_client()
             db_client.admin.command("ping")

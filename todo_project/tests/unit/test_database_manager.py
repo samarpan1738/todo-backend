@@ -82,7 +82,7 @@ class DatabaseManagerTests(TestCase):
         mock_get_database_client.return_value = mock_client
 
         # Call the function under test
-        result = self.database_manager.check_db_health()
+        result = self.database_manager.check_database_health()
 
         # Assertions for success scenario
         self.assertTrue(result)
@@ -95,7 +95,7 @@ class DatabaseManagerTests(TestCase):
         mock_client.admin.command.side_effect = ConnectionFailure("Mocked connection failure")
         mock_get_database_client.return_value = mock_client
 
-        result = self.database_manager.check_db_health()
+        result = self.database_manager.check_database_health()
 
         self.assertFalse(result)
         mock_get_database_client.assert_called_once()

@@ -18,7 +18,7 @@ class DatabaseManagerTests(TestCase):
 
     @patch("todo_project.db.config.MongoClient")
     @patch("django.conf.settings")
-    def test_get_db_client_initializes_client_when_called_first_time(self, mock_settings, mock_mongo_client):
+    def test_initializes_db_client_on_first_call(self, mock_settings, mock_mongo_client):
         mock_settings.MONGODB_URI = settings.MONGODB_URI
         mock_client_instance = MagicMock(spec=MongoClient)
         mock_mongo_client.return_value = mock_client_instance
@@ -30,9 +30,7 @@ class DatabaseManagerTests(TestCase):
 
     @patch("todo_project.db.config.MongoClient")
     @patch("django.conf.settings")
-    def test_get_db_client_reuses_existing_client_when_called_after_initialization(
-        self, mock_settings, mock_mongo_client
-    ):
+    def test_reuses_existing_db_client_on_subsequent_calls(self, mock_settings, mock_mongo_client):
         mock_settings.MONGODB_URI = settings.MONGODB_URI
         mock_client_instance = MagicMock(spec=MongoClient)
         mock_mongo_client.return_value = mock_client_instance
@@ -45,7 +43,7 @@ class DatabaseManagerTests(TestCase):
 
     @patch("todo_project.db.config.DatabaseManager._DatabaseManager__get_database_client")
     @patch("django.conf.settings")
-    def test_get_database_fetches_db_when_called_first_time(self, mock_settings, mock_get_database_client):
+    def test_initializes_db_on_first_call(self, mock_settings, mock_get_database_client):
         mock_settings.DB_NAME = settings.DB_NAME
         mock_client = MagicMock(spec=MongoClient)
         mock_database_instance = MagicMock(spec=Database)
@@ -62,9 +60,7 @@ class DatabaseManagerTests(TestCase):
 
     @patch("todo_project.db.config.DatabaseManager._DatabaseManager__get_database_client")
     @patch("django.conf.settings")
-    def test_get_database_reuses_existing_db_when_called_after_initialization(
-        self, mock_settings, mock_get_database_client
-    ):
+    def test_reuses_existing_db_on_subsequent_calls(self, mock_settings, mock_get_database_client):
         mock_settings.DB_NAME = settings.DB_NAME
         mock_client = MagicMock(spec=MongoClient)
         mock_database_instance = MagicMock(spec=Database)
@@ -79,7 +75,7 @@ class DatabaseManagerTests(TestCase):
         self.assertEqual(db_instance1, db_instance2)
 
     @patch("todo_project.db.config.DatabaseManager._DatabaseManager__get_database_client")
-    def test_db_health_check_when_connection_successful(self, mock_get_database_client):
+    def test_check_db_health_returns_true_on_successful_connection(self, mock_get_database_client):
         # Mocking the success scenario
         mock_client = MagicMock()
         mock_client.admin.command.return_value = {"ok": 1}
@@ -94,7 +90,7 @@ class DatabaseManagerTests(TestCase):
         mock_client.admin.command.assert_called_once_with("ping")
 
     @patch("todo_project.db.config.DatabaseManager._DatabaseManager__get_database_client")
-    def test_db_health_check_when_connection_failure(self, mock_get_database_client):
+    def test_check_db_health_returns_false_on_connection_failure(self, mock_get_database_client):
         mock_client = MagicMock()
         mock_client.admin.command.side_effect = ConnectionFailure("Mocked connection failure")
         mock_get_database_client.return_value = mock_client

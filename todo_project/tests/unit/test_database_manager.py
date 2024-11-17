@@ -73,15 +73,12 @@ class DatabaseManagerTests(TestCase):
 
     @patch("todo_project.db.config.DatabaseManager._DatabaseManager__get_database_client")
     def test_check_db_health_returns_true_on_successful_connection(self, mock_get_database_client):
-        # Mocking the success scenario
         mock_client = MagicMock()
         mock_client.admin.command.return_value = {"ok": 1}
         mock_get_database_client.return_value = mock_client
 
-        # Call the function under test
         result = self.database_manager.check_database_health()
 
-        # Assertions for success scenario
         self.assertTrue(result)
         mock_get_database_client.assert_called_once()
         mock_client.admin.command.assert_called_once_with("ping")

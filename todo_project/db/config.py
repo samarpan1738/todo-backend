@@ -16,14 +16,14 @@ class DatabaseManager:
             cls.__instance._db = None
         return cls.__instance
 
-    def __get_database_client(self):
+    def _get_database_client(self):
         if self._database_client is None:
             self._database_client = MongoClient(settings.MONGODB_URI)
         return self._database_client
 
     def get_database(self):
         if self._db is None:
-            self._db = self.__get_database_client()[settings.DB_NAME]
+            self._db = self._get_database_client()[settings.DB_NAME]
         return self._db
 
     def get_collection(self, collection_name):
@@ -32,7 +32,7 @@ class DatabaseManager:
 
     def check_database_health(self):
         try:
-            db_client = self.__get_database_client()
+            db_client = self._get_database_client()
             db_client.admin.command("ping")
             logger.info("Database connection established successfully")
             return True

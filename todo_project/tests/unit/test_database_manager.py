@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock
 from django.conf import settings
 from todo_project.db.config import DatabaseManager
 from pymongo import MongoClient
-from pymongo.database import Database
+from pymongo.database import Database, Collection
 from pymongo.errors import ConnectionFailure
 
 
@@ -70,6 +70,19 @@ class DatabaseManagerTests(TestCase):
         mock_get_database_client.assert_called_once()
 
         self.assertIs(db_instance1, db_instance2)
+
+    @patch("todo_project.db.config.DatabaseManager.get_database")
+    def test_get_collection_returns_specified_collection(self, mock_get_database):
+        mock_database_instance = MagicMock(spec=Database)
+        mock_collection = MagicMock(spec=Collection)
+        mock_database_instance.__getitem__.return_value = mock_collection
+        mock_get_database.return_value = mock_database_instance
+
+        collection_name = "test_collection"
+        collection = self.database_manager.get_collection(collection_name)
+
+        self.assertEqual(collection, mock_collection)
+        mock_database_instance.__getitem__.assert_called_once_with(collection_name)
 
     @patch("todo_project.db.config.DatabaseManager._get_database_client")
     def test_check_db_health_returns_true_on_successful_connection(self, mock_get_database_client):

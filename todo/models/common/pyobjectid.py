@@ -8,7 +8,9 @@ class PyObjectId(ObjectId):
 
     @classmethod
     def validate(cls, value, field=None):
-        if value is None or ObjectId.is_valid(value):
+        if value is None:
+            return None
+        if value is not None and ObjectId.is_valid(value):
             return ObjectId(value)
         raise ValueError(f"Invalid ObjectId: {value}")
 

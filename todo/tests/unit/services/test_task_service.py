@@ -6,8 +6,8 @@ from todo.dto.responses.paginated_response import LinksData
 from todo.dto.user_dto import UserDTO
 from todo.services.task_service import TaskService
 from todo.dto.task_dto import TaskDTO
-from todo.tests.fixtures.task_model import tasks_models
-from todo.tests.fixtures.label_model import label_models
+from todo.tests.fixtures.task import tasks_models
+from todo.tests.fixtures.label import label_models
 
 
 class TaskServiceTests(TestCase):

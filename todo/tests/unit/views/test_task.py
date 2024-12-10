@@ -5,7 +5,7 @@ from unittest.mock import patch, Mock
 from rest_framework.response import Response
 from todo.constants.task import DEFAULT_PAGE_LIMIT
 from todo.dto.responses.get_tasks_response import GetTasksResponse
-from todo.tests.fixtures.task_dto import task_dtos
+from todo.tests.fixtures.task import task_dtos
 
 
 class TaskViewTests(APISimpleTestCase):

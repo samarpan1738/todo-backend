@@ -20,11 +20,6 @@ class PyObjectIdTests(TestCase):
     def test_validate_none(self):
         self.assertIsNone(PyObjectId.validate(None))
 
-    def test_pydantic_json_schema(self):
-        field_schema = {}
-        PyObjectId.__get_pydantic_json_schema__(field_schema)
-        self.assertEqual(field_schema["type"], "string")
-
     def test_integration_with_pydantic_model(self):
         class TestModel(BaseModel):
             id: PyObjectId

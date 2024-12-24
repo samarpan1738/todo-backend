@@ -20,6 +20,9 @@ jobs:
       DB_NAME: todo-app
 
     steps:
+      - name: Check glibc version
+        run: ldd --version
+        
       - name: Checkout code
         uses: actions/checkout@v3
 

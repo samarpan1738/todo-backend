@@ -23,6 +23,9 @@ jobs:
       - name: Check glibc version
         run: ldd --version
 
+      - name: Check glibc version 2
+        run: dpkg-query -l | grep libc6
+
       - name: Checkout code
         uses: actions/checkout@v3
 
